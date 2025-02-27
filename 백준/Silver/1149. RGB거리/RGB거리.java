@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
@@ -10,14 +13,16 @@ public class Main {
             dy[i][2] = Math.min(dy[i-1][0],dy[i-1][1])+array[i][2];
         }
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        int n = Integer.parseInt(br.readLine());
         array = new int[n][3];
         dy = new int[n][3];
         for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine()," ");
             for (int j = 0; j < 3; j++) {
-                array[i][j] = sc.nextInt();
+                array[i][j] = Integer.parseInt(st.nextToken());
             }
         }
         for (int i = 0; i < 3; i++) {
