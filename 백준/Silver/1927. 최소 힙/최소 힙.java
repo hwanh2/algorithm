@@ -21,6 +21,7 @@ public class Main {
                 pq.add(num);
             }
         }
+        br.close();
         bw.close();
     }
 }
