@@ -15,7 +15,7 @@ public class Main {
             for(int i=0; i<4; i++){
                 int x = tmpX+dx[i];
                 int y = tmpY+dy[i];
-                if(x>=0 && x<m && y>=0 && y<n && mat[y][x]==1 && distance[y][x]==-1){
+                if(x>=0 && x<m && y>=0 && y<n && distance[y][x]==-1){
                     distance[y][x] = distance[tmpY][tmpX]+1;
                     queue.offer(new int[] {y,x});
                 }
@@ -50,9 +50,10 @@ public class Main {
         bfs(n,m);
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                System.out.print(distance[i][j]+" ");
+                bw.write(distance[i][j]+" ");
             }
-            System.out.println();
+            bw.write("\n");
         }
+        bw.close();
     }
 }
