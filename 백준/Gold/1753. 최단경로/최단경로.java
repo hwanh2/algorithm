@@ -2,48 +2,45 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static ArrayList<ArrayList<Edge>> array;
     static int[] distance;
-    static final int INF = Integer.MAX_VALUE;
-    static PriorityQueue<Edge> pq;
-    static void shortest_path(int start,int v){
-        pq = new PriorityQueue<>();
-        pq.add(new Edge(start,0));
+    static ArrayList<ArrayList<Node>> array = new ArrayList<>();
+    static PriorityQueue<Node> pq = new PriorityQueue<>();
+    static int INF = Integer.MAX_VALUE;
+    static void shortestPath(int start,int v){
+        pq.add(new Node(start,0));
         distance[start] = 0;
         while(!pq.isEmpty()){
-            Edge tmp = pq.poll();
-            int tmpNode = tmp.node;
-            int tmpWeight = tmp.weight;
-            for(Edge edge:array.get(tmpNode)){
-                if(distance[edge.node]>tmpWeight+edge.weight){
-                    distance[edge.node] = tmpWeight+edge.weight;
-                    pq.add(new Edge(edge.node,tmpWeight+edge.weight));
+            Node now = pq.poll();
+            int nowNode = now.node;
+            int nowWeight = now.weight;
+            for(Node node : array.get(nowNode)){
+                if(distance[node.node]>nowWeight+node.weight){
+                    distance[node.node] = nowWeight+node.weight;
+                    pq.add(new Node(node.node,nowWeight+node.weight));
                 }
             }
         }
-
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int v = Integer.parseInt(st.nextToken());
         int e = Integer.parseInt(st.nextToken());
         int start = Integer.parseInt(br.readLine());
-        array = new ArrayList<>();
-        for (int i = 0; i <= v; i++) {
+        distance = new int[v+1];
+        for(int i=0; i<=v; i++){
             array.add(new ArrayList<>());
         }
-        distance = new int[v+1];
         Arrays.fill(distance,INF);
         for(int i=0; i<e; i++){
             st = new StringTokenizer(br.readLine()," ");
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-            array.get(a).add(new Edge(b,c));
+            array.get(a).add(new Node(b,c));
         }
-        shortest_path(start,v);
+        shortestPath(start,v);
         for(int i=1; i<=v; i++){
             if(distance[i]==INF){
                 bw.write("INF"+"\n");
@@ -55,18 +52,17 @@ public class Main {
         bw.flush();
     }
 }
-
-class Edge implements Comparable<Edge>{
+class Node implements Comparable<Node>{
     public int node;
     public int weight;
 
-    public Edge(int node, int weight) {
+    public Node(int node, int weight) {
         this.node = node;
         this.weight = weight;
     }
 
     @Override
-    public int compareTo(Edge o) {
+    public int compareTo(Node o) {
         return this.weight - o.weight;
     }
 }
