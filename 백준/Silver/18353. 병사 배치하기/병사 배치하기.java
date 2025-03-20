@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[] array;
+    static int[] dp;
+    static int n;
+    static void solve(){
+        for(int i=1; i<n; i++){
+            int max = 0;
+            for(int j=0; j<i; j++){
+                if(array[i]<array[j]){
+                    max = Math.max(max,dp[j]);
+                }
+            }
+            dp[i] = max+1;
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        array = new int[n];
+        dp = new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        for(int i=0; i<n; i++){
+            array[i] = Integer.parseInt(st.nextToken());
+        }
+        dp[0] = 1;
+        solve();
+        Arrays.sort(dp);
+        System.out.println(n-dp[n-1]);
+    }
+}
