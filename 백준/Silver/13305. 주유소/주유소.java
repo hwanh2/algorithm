@@ -21,7 +21,11 @@ public class Main {
             if(min<node[i]){
                 node[i] = min;
             }
+            else{
+                min = node[i];
+            }
         }
+
         int sum = 0;
         for(int i=0; i<n-1; i++){
             sum+=node[i]*distance[i];
