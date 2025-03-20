@@ -26,9 +26,9 @@ public class Main {
             }
         }
 
-        int sum = 0;
+        long sum = 0;
         for(int i=0; i<n-1; i++){
-            sum+=node[i]*distance[i];
+            sum+=(long)node[i]*distance[i];
         }
         System.out.println(sum);
         
