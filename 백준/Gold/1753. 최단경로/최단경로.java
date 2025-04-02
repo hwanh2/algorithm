@@ -2,67 +2,77 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static PriorityQueue<Edge> pq;
+    static List<List<Edge>> arrayList;
     static int[] distance;
-    static ArrayList<ArrayList<Node>> array = new ArrayList<>();
-    static PriorityQueue<Node> pq = new PriorityQueue<>();
-    static int INF = Integer.MAX_VALUE;
-    static void shortestPath(int start,int v){
-        pq.add(new Node(start,0));
+    static int[] visited;
+    static final int INF = Integer.MAX_VALUE;
+    static void shortest_path(int start){
+        pq = new PriorityQueue<>();
+        pq.add(new Edge(start,0));
         distance[start] = 0;
         while(!pq.isEmpty()){
-            Node now = pq.poll();
-            int nowNode = now.node;
-            int nowWeight = now.weight;
-            for(Node node : array.get(nowNode)){
-                if(distance[node.node]>nowWeight+node.weight){
-                    distance[node.node] = nowWeight+node.weight;
-                    pq.add(new Node(node.node,nowWeight+node.weight));
+            Edge tmp = pq.poll();
+            int tmpNode = tmp.node;
+            int tmpWeight = tmp.weight;
+            if(visited[tmpNode]==0){
+                visited[tmpNode] = 1;
+                for(Edge edge : arrayList.get(tmpNode)){
+                    if(distance[edge.node]> edge.weight+tmpWeight){
+                        distance[edge.node] = edge.weight + tmpWeight;
+                        pq.add(new Edge(edge.node, edge.weight+tmpWeight));
+                    }
                 }
             }
         }
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        StringBuilder sb = new StringBuilder();
+        arrayList = new ArrayList<>();
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
         int v = Integer.parseInt(st.nextToken());
         int e = Integer.parseInt(st.nextToken());
         int start = Integer.parseInt(br.readLine());
         distance = new int[v+1];
+        visited = new int[v+1];
+        Arrays.fill(distance,INF); // distance배열 최댓값으로 설정
         for(int i=0; i<=v; i++){
-            array.add(new ArrayList<>());
+            arrayList.add(new ArrayList<>());
         }
-        Arrays.fill(distance,INF);
         for(int i=0; i<e; i++){
             st = new StringTokenizer(br.readLine()," ");
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-            array.get(a).add(new Node(b,c));
+            arrayList.get(a).add(new Edge(b,c));
         }
-        shortestPath(start,v);
+        shortest_path(start);
         for(int i=1; i<=v; i++){
             if(distance[i]==INF){
-                bw.write("INF"+"\n");
+                sb.append("INF").append("\n");
             }
             else{
-                bw.write(distance[i]+"\n");
+                sb.append(distance[i]+"\n");
             }
         }
-        bw.flush();
+        System.out.println(sb);
+
     }
 }
-class Node implements Comparable<Node>{
+
+class Edge implements Comparable<Edge>{
     public int node;
     public int weight;
 
-    public Node(int node, int weight) {
+    public Edge(int node, int weight) {
         this.node = node;
         this.weight = weight;
     }
 
     @Override
-    public int compareTo(Node o) {
+    public int compareTo(Edge o) {
         return this.weight - o.weight;
     }
 }
+
