@@ -9,7 +9,7 @@ public class Main {
     static int[] visited;
     static PriorityQueue<Edge> pq;
     static int INF = 200000000;
-    static int shortestPath(int start,int end){
+    static void shortestPath(int start){
         pq = new PriorityQueue<>();
         pq.add(new Edge(start,0));
         distance = new int[n+1];
@@ -17,27 +17,29 @@ public class Main {
         Arrays.fill(distance,INF);
         distance[start] = 0;
 
-        while (!pq.isEmpty()) {
+        while (!pq.isEmpty()){
             Edge tmp = pq.poll();
             int tmpNode = tmp.node;
             int tmpWeight = tmp.weight;
-            if (visited[tmpNode] == 0) {
+            if(visited[tmpNode]==0){
                 visited[tmpNode] = 1;
-                for (Edge edge : arrayList.get(tmpNode)) {
-                    if (distance[edge.node] > tmpWeight + edge.weight) {
-                        distance[edge.node] = tmpWeight + edge.weight;
-                        pq.add(new Edge(edge.node, tmpWeight + edge.weight));
+                for(Edge edge : arrayList.get(tmpNode)){
+                    if(distance[edge.node] > tmpWeight+edge.weight){
+                        distance[edge.node] = tmpWeight+edge.weight;
+                        pq.add(new Edge(edge.node,tmpWeight+edge.weight));
                     }
                 }
             }
+
         }
-        return distance[end];
     }
-    static int resultLen(int num1, int num2){
-        int result = 0;
-        result+=shortestPath(1,num1);
-        result+=shortestPath(num1,num2);
-        result+=shortestPath(num2,n);
+    static int resultLen(int num1,int num2){
+        shortestPath(1);
+        int v1Len = distance[num1];
+        shortestPath(num1);
+        int v2Len = distance[num2];
+        shortestPath(num2);
+        int result = v1Len+v2Len+distance[n];
         return result;
     }
     public static void main(String[] args) throws IOException {
@@ -63,11 +65,12 @@ public class Main {
         int v2 = Integer.parseInt(st.nextToken());
         int result1 = resultLen(v1,v2);
         int result2 = resultLen(v2,v1);
-        if(result1>=INF && result2>=INF){
+
+        int result = Math.min(result1,result2);
+        if(result>=INF){
             System.out.println(-1);
         }
         else{
-            int result = Math.min(result1,result2);
             System.out.println(result);
         }
     }
