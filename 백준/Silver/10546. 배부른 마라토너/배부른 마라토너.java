@@ -6,7 +6,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         ArrayList<String> arrayList = new ArrayList<>();
-        Map<String,Integer> map = new LinkedHashMap<>();
+        Map<String,Integer> map = new HashMap<>();
         int n = Integer.parseInt(br.readLine());
         for(int i=0; i<n; i++){
             String str = br.readLine();
