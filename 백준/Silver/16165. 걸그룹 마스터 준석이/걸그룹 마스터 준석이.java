@@ -19,6 +19,7 @@ public class Main {
             for(int j=0; j<num; j++){
                 arrayList.add(br.readLine());
             }
+            Collections.sort(arrayList);
             map.put(group,arrayList);
         }
 
@@ -31,19 +32,14 @@ public class Main {
                     List<String> list = map.get(groupName);
 
                     if(list.contains(question)){
-                        sb.append(groupName+"\n");
+                        sb.append(groupName).append("\n");
                     }
                 }
             }
-            else{
-                for(String groupName : map.keySet()){
-                    if(question.equals(groupName)){
-                        List<String> list = map.get(groupName);
-                        Collections.sort(list);
-                        for(String memberName : list){
-                            sb.append(memberName+"\n");
-                        }
-                    }
+            else if(num==0){
+                List<String> list = map.get(question);
+                for(String memberName : list){
+                    sb.append(memberName).append("\n");
                 }
             }
         }
