@@ -7,19 +7,17 @@ public class Main {
     static int m;
     static int max = 0;
     static boolean[] visited;
-    static int[][] distance;
     static int[] dx = {0,0,1,-1};
     static int[] dy = {1,-1,0,0};
-    static void dfs(int x, int y){
+    static void dfs(int x, int y, int len){
         visited[map[y][x]-'A'] = true;
+        max = Math.max(max,len);
 
         for(int i=0; i<4; i++){
             int px = x+dx[i];
             int py = y+dy[i];
             if(px>=0 && py>=0 && px<m && py<n && visited[map[py][px]-'A'] == false){
-                distance[py][px] = distance[y][x]+1;
-                max = Math.max(max,distance[py][px]);
-                dfs(px,py);
+                dfs(px,py,len+1);
                 visited[map[py][px]-'A'] = false;
             }
 
@@ -33,7 +31,6 @@ public class Main {
 
         visited = new boolean[26];
         map = new char[n][m];
-        distance = new int[n][m];
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
             for (int j = 0; j < m; j++) {
@@ -41,9 +38,9 @@ public class Main {
             }
         }
 
-        dfs(0, 0);
-        
-        System.out.println(max+1);
+        dfs(0, 0,1);
+
+        System.out.println(max);
 
     }
 }
