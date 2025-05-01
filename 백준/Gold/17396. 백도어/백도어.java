@@ -47,10 +47,6 @@ public class Main {
         for(int i=0; i<n; i++){
             isShow[i] = Integer.parseInt(st.nextToken());
         }
-        if (isShow[0] == 1) {
-            System.out.println(-1);
-            return;
-        }
 
         for(int i=0; i<m; i++){
             st = new StringTokenizer(br.readLine()," ");
