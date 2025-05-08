@@ -7,7 +7,6 @@ public class Main {
     static String[] tmp;
     static StringBuilder sb;
     static String[] array;
-    static int[] visited;
     static void backTracking(int depth,int start){
         if(depth==l){
             int count1 = 0;
@@ -29,12 +28,8 @@ public class Main {
             return;
         }
         for(int i=start; i<array.length; i++){
-            if(visited[i]==0){
-                tmp[depth] = array[i];
-                visited[i] = 1;
-                backTracking(depth+1,i+1);
-                visited[i] = 0;
-            }
+            tmp[depth] = array[i];
+            backTracking(depth+1,i+1);
         }
     }
     public static void main(String[] args) throws IOException {
@@ -44,7 +39,6 @@ public class Main {
         int c = Integer.parseInt(st.nextToken());
         sb = new StringBuilder();
         tmp = new String[l];
-        visited = new int[c];
 
         array = new String[c];
         st = new StringTokenizer(br.readLine()," ");
