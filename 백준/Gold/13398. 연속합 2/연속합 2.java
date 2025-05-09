@@ -26,7 +26,7 @@ public class Main {
             array[i] = Integer.parseInt(st.nextToken());
         }
         dp[0][0] = array[0];
-        dp[1][0] = -100000;
+        dp[1][0] = 0;
 
         System.out.println(solve());
 
