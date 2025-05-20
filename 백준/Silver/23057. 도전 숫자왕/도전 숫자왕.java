@@ -5,14 +5,15 @@ public class Main {
     static int n;
     static int[] array;
     static Set<Integer> set = new HashSet<>();
-    static void backTracking(int depth,int sum){
-        if(depth == n){
-            set.add(sum);
-            return;
+
+    static void backTracking(int start, int sum) {
+        set.add(sum);  // 현재까지의 합 저장
+
+        for (int i = start; i < n; i++) {
+            backTracking(i + 1, sum + array[i]);
         }
-        backTracking(depth+1,sum);
-        backTracking(depth+1,sum+array[depth]);
     }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -20,16 +21,15 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         array = new int[n];
 
-        int m = 0;
-
-        for(int i=0; i<n; i++){
+        int totalSum = 0;
+        for (int i = 0; i < n; i++) {
             array[i] = Integer.parseInt(st.nextToken());
-            m+=array[i];
+            totalSum += array[i];
         }
 
-        backTracking(0,0);
-
-        System.out.println(m-set.size()+1);
-
+        backTracking(0, 0);
+        
+        int result = totalSum - (set.size() - 1);  // 0은 제외
+        System.out.println(result);
     }
 }
