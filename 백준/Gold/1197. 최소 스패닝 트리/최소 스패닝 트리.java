@@ -41,12 +41,17 @@ public class Main {
         Collections.sort(arrayList);
 
         int result = 0;
+        int edgeCount = 0;
         for(Edge edge : arrayList){
+            if(edgeCount==v-1){
+                break;
+            }
             int fNode1 = find(edge.node1);
             int fNode2 = find(edge.node2);
             if(fNode1!=fNode2){
                 union(fNode1,fNode2);
                 result+=edge.weight;
+                edgeCount++;
             }
         }
         System.out.println(result);
