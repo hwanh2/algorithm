@@ -10,9 +10,10 @@ public class Main {
         int m = Integer.parseInt(st.nextToken());
 
         int[] array = new int[n];
-        int max = 10000*100000, min = 0;
+        int max = 0, min = 0;
         for(int i=0; i<n; i++){
             array[i] = Integer.parseInt(br.readLine());
+            max+=array[i];
             min = Math.max(min,array[i]);
         }
         int result = 0;
