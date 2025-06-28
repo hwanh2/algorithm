@@ -13,12 +13,21 @@ public class Main {
         for(int i=0; i<n; i++){
             array[i] = Integer.parseInt(st.nextToken());
         }
+
+        Arrays.sort(array);
+        int left = 0;
+        int right = n-1;
         int count = 0;
-        for(int i=0; i<n; i++){
-            for(int j=i+1; j<n; j++){
-                if(array[i]+array[j]==m){
-                    count++;
-                }
+        while(left<right){
+            if(array[left]+array[right]>m){
+                right--;
+            }
+            else if(array[left]+array[right]==m){
+                count++;
+                left++;
+            }
+            else{
+                left++;
             }
         }
         System.out.println(count);
