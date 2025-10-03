@@ -7,31 +7,26 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
         List<String> list = new ArrayList<>();
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             list.add(br.readLine());
         }
 
         int len = list.get(0).length();
-        int count = 0;
 
-        for(int i=1; i<=len; i++){
-            List<String> tmp = new ArrayList<>();
-            int flag = 0;
-            for(int j=0; j<n; j++){
-                String str = list.get(j).substring(len-i,len);
-                if(tmp.contains(str)){
-                    flag = 1;
+        for (int i = 1; i <= len; i++) {
+            Set<String> set = new HashSet<>();
+            boolean ok = true;
+            for (String s : list) {
+                String suf = s.substring(len - i);
+                if (!set.add(suf)) {
+                    ok = false;
                     break;
                 }
-                else{
-                    tmp.add(str);
-                }
             }
-            if(flag==0){
-                count = i;
-                break;
+            if (ok) {
+                System.out.println(i);
+                return;
             }
         }
-        System.out.println(count);
     }
 }
