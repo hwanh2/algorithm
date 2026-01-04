@@ -20,6 +20,9 @@ public class Main {
                     if(distance[i]<=3){
                         count++;
                     }
+                    else{
+                        break;
+                    }
                 }
             }
         }
