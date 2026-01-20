@@ -10,19 +10,19 @@ public class Main {
     static void dfs(int depth, int s, int start){
         if(depth==7){
             if(s>=4){
-                bfs((start-1)%5, (start-1)/5);
+                bfs((start)%5, (start)/5);
             }
             return;
         }
-        for(int i=start; i<25; i++){
+        for(int i=start+1; i<25; i++){
             int r = i/5;
             int c = i%5;
 
             visited[r][c] = true;
             if(map[r][c] == 'S'){
-                dfs(depth+1,s+1,i+1);
+                dfs(depth+1,s+1,i);
             } else {
-                dfs(depth+1,s,i+1);
+                dfs(depth+1,s,i);
             }
             visited[r][c] = false;
         }
@@ -68,7 +68,7 @@ public class Main {
             }
         }
 
-        dfs(0,0,0);
+        dfs(0,0,-1);
 
         System.out.println(result);
 
